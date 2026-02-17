@@ -1,0 +1,276 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.1.2 effective-5.10 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)
+// swift-module-flags: -target x86_64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name BureauSDKiOS
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -interface-compiler-version 6.1.2
+import AVFoundation
+import AdSupport
+import AppTrackingTransparency
+import CallKit
+import SystemConfiguration.CaptiveNetwork
+import CommonCrypto
+import CoreGraphics
+import CoreLocation
+import CoreMotion
+import CoreTelephony
+import CryptoKit
+import Darwin
+import Foundation
+import JavaScriptCore
+import LocalAuthentication
+import MachO
+import MessageUI
+import Network
+import ObjectiveC
+import Security
+import Swift
+import SwiftUI
+import SystemConfiguration
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import zlib
+public enum BureauError : Swift.Error {
+  case eventIDEmpty
+  case eaKeysEmpty
+  case httpException
+  case networkError
+  case unauthorized
+  case duplicateEventID
+  case submissionAlreadyInProgress
+  case encryptionError
+  case unknown(statusCode: Swift.Int)
+}
+extension BureauSDKiOS.BureauError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public struct GzipCompressor {
+  public enum Error : Swift.Error {
+    case deflateInitFailed(code: Swift.Int32)
+    case deflateFailed(code: Swift.Int32)
+    case fileReadFailed
+    case fileWriteFailed
+    case invalidInput
+  }
+  public static func compress(data: Foundation.Data, level: Swift.Int32 = Z_DEFAULT_COMPRESSION) throws -> Foundation.Data
+}
+public protocol DeviceInfoProviding {
+  @available(iOS 13.0, tvOS 13.0, *)
+  func getDeviceInfo() async -> BureauSDKiOS.DeviceInfo
+  func getDeviceInfo(_ completion: @escaping (BureauSDKiOS.DeviceInfo) -> Swift.Void)
+}
+@_hasMissingDesignatedInitializers public class DeviceInfoProvider {
+  convenience public init()
+  @objc deinit
+}
+extension BureauSDKiOS.DeviceInfoProvider : BureauSDKiOS.DeviceInfoProviding {
+  @available(iOS 13.0, tvOS 13.0, *)
+  public func getDeviceInfo() async -> BureauSDKiOS.DeviceInfo
+  public func getDeviceInfo(_ completion: @escaping (BureauSDKiOS.DeviceInfo) -> Swift.Void)
+}
+public typealias CompletionBlock = (_ eventID: Swift.String, _ result: Swift.Bool, _ error: BureauSDKiOS.BureauError?) -> Swift.Void
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class BureauSDK : ObjectiveC.NSObject {
+  public static let shared: BureauSDKiOS.BureauSDK
+  public static func initialize(config: BureauSDKiOS.BureauConfig)
+  public func setFlow(_ flow: Swift.String)
+  public func submit() -> Swift.String
+  @objc deinit
+}
+extension BureauSDKiOS.BureauSDK : CoreLocation.CLLocationManagerDelegate {
+  @objc dynamic public func locationManager(_ manager: CoreLocation.CLLocationManager, didUpdateLocations locations: [CoreLocation.CLLocation])
+}
+public struct CredentialBuilder {
+}
+public enum Environment {
+  case development
+  case staging
+  case production
+  public static func == (a: BureauSDKiOS.Environment, b: BureauSDKiOS.Environment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol BureauFingerprintDelegate : ObjectiveC.NSObject {
+  func onFinished(eventID: Swift.String?, data: [Swift.String : Any]?)
+}
+extension BureauSDKiOS.BureauSDK {
+  public func isSDKInitializationSuccess() -> Swift.Bool
+  public func resetSDKInitialization()
+}
+@_hasMissingDesignatedInitializers public class UserBehaviourCapture {
+  public init()
+  public func startCapture()
+  public func stopCapture()
+  @objc deinit
+}
+public enum FingerprintJSVersion {
+  case v1
+  case v2
+  public static func == (a: BureauSDKiOS.FingerprintJSVersion, b: BureauSDKiOS.FingerprintJSVersion) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum FingerprintAlgorithm {
+  case sha256
+  public static func == (a: BureauSDKiOS.FingerprintAlgorithm, b: BureauSDKiOS.FingerprintAlgorithm) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct Configuration {
+  public init(version: BureauSDKiOS.FingerprintJSVersion = .v2, algorithm: BureauSDKiOS.FingerprintAlgorithm = .sha256)
+}
+public protocol FingerprintFunction {
+  func fingerprint(data: Foundation.Data) -> Swift.String
+}
+@_hasMissingDesignatedInitializers public class DebugLogger {
+  public static let shared: BureauSDKiOS.DebugLogger
+  public var isLoggingEnabled: Swift.Bool
+  public func log(_ message: Swift.String, logLevel: BureauSDKiOS.DebugLogger.LogLevel = .info)
+  public enum LogLevel : Swift.String {
+    case info
+    case warning
+    case error
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Fingerprinter {
+  @objc deinit
+}
+extension BureauSDKiOS.Fingerprinter {
+  public func getDeviceId(_ completion: @escaping (Swift.String?) -> Swift.Void)
+  public func getFingerprint(_ completion: @escaping (Swift.String?) -> Swift.Void)
+  public func getFingerprintTree(_ completion: @escaping (BureauSDKiOS.FingerprintTree) -> Swift.Void)
+}
+@available(iOS 13.0, tvOS 13.0, *)
+extension BureauSDKiOS.Fingerprinter {
+  public func getDeviceId() async -> Swift.String?
+  public func getFingerprintTree() async -> BureauSDKiOS.FingerprintTree
+  public func getFingerprint() async -> Swift.String?
+}
+public protocol FingerprinterInstanceProviding {
+  static func getInstance(_ configuration: BureauSDKiOS.Configuration) -> BureauSDKiOS.Fingerprinter
+}
+@_hasMissingDesignatedInitializers public class FingerprinterFactory : BureauSDKiOS.FingerprinterInstanceProviding {
+  public static func getInstance(_ configuration: BureauSDKiOS.Configuration = Configuration()) -> BureauSDKiOS.Fingerprinter
+  @objc deinit
+}
+public struct DeviceInfo {
+  public let vendorIdentifier: Foundation.UUID?
+  public let diskSpace: BureauSDKiOS.DiskSpaceInfo?
+  public let screenResolution: CoreFoundation.CGSize?
+  public let deviceType: Swift.String?
+  public let deviceModel: Swift.String?
+  public let memorySize: Swift.String?
+  public let physicalMemory: Swift.String?
+  public let cpuCount: Swift.String?
+  public let osVersion: Swift.String?
+  public let osType: Swift.String?
+  public let osRelease: Swift.String?
+  public let kernelVersion: Swift.String?
+  public let batteryCapacity: Swift.String?
+  public let batteryHealth: Swift.String?
+  public let isCharging: Swift.Bool?
+  public let ipv4: Swift.String?
+  public let ipv6: Swift.String?
+  public let isVpnConnected: Swift.String?
+  public let wifiMacAddress: Swift.String?
+  public let networkType: Swift.String?
+}
+public struct DiskSpaceInfo {
+  public let freeDiskSpace: Swift.UInt64
+  public let totalDiskSpace: Swift.UInt64
+}
+public enum LocalRiskSignalFrequesncy {
+  case instant
+  case continuous
+  public static func == (a: BureauSDKiOS.LocalRiskSignalFrequesncy, b: BureauSDKiOS.LocalRiskSignalFrequesncy) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol BehavioralBiometricsHelper {
+  func getSessionId() -> Swift.String
+}
+public struct FingerprintTree {
+  public let info: BureauSDKiOS.DeviceInfoItem
+  public let children: [BureauSDKiOS.FingerprintTree]?
+  public var fingerprint: Swift.String {
+    get
+  }
+}
+public enum DeviceInfoValueType {
+  case category
+  case info(Swift.String)
+}
+public struct DeviceInfoItem {
+  public let label: Swift.String
+  public let value: BureauSDKiOS.DeviceInfoValueType
+  public let children: [BureauSDKiOS.DeviceInfoItem]?
+}
+extension CoreFoundation.CGSize : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public typealias FailedCheckType = (check: BureauSDKiOS.FailedCheck, failMessage: Swift.String)
+public enum FailedCheck : Swift.CaseIterable {
+  case urlSchemes
+  case existenceOfSuspiciousFiles
+  case suspiciousFilesCanBeOpened
+  case restrictedDirectoriesWriteable
+  case fork
+  case symbolicLinks
+  case dyld
+  case openedPorts
+  case pSelectFlag
+  case suspiciousObjCClasses
+  public static func == (a: BureauSDKiOS.FailedCheck, b: BureauSDKiOS.FailedCheck) -> Swift.Bool
+  public typealias AllCases = [BureauSDKiOS.FailedCheck]
+  nonisolated public static var allCases: [BureauSDKiOS.FailedCheck] {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @available(iOSApplicationExtension, unavailable)
+public class BureauSecurityLib {
+  public static func amIJailbroken() -> Swift.Bool
+  public static func amIRunInEmulator() -> Swift.Bool
+  public static func amIJailbrokenWithFailMessage() -> (jailbroken: Swift.Bool, failMessage: Swift.String)
+  public static func amIJailbrokenWithFailedChecks() -> (jailbroken: Swift.Bool, failedChecks: [BureauSDKiOS.FailedCheckType])
+  public static func amIReverseEngineered() -> Swift.Bool
+  public static func amIReverseEngineeredWithFailedChecks() -> (reverseEngineered: Swift.Bool, failedChecks: [BureauSDKiOS.FailedCheckType])
+  @objc deinit
+}
+public struct BureauConfig {
+  public init(credentialID: Swift.String, environment: BureauSDKiOS.Environment, enableBehavioralBiometrics: Swift.Bool = false, userId: Swift.String = "", flow: Swift.String = "", enableDebugLog: Swift.Bool = false)
+}
+extension BureauSDKiOS.Environment : Swift.Equatable {}
+extension BureauSDKiOS.Environment : Swift.Hashable {}
+extension BureauSDKiOS.FingerprintJSVersion : Swift.Equatable {}
+extension BureauSDKiOS.FingerprintJSVersion : Swift.Hashable {}
+extension BureauSDKiOS.FingerprintAlgorithm : Swift.Equatable {}
+extension BureauSDKiOS.FingerprintAlgorithm : Swift.Hashable {}
+extension BureauSDKiOS.DebugLogger.LogLevel : Swift.Equatable {}
+extension BureauSDKiOS.DebugLogger.LogLevel : Swift.Hashable {}
+extension BureauSDKiOS.DebugLogger.LogLevel : Swift.RawRepresentable {}
+extension BureauSDKiOS.LocalRiskSignalFrequesncy : Swift.Equatable {}
+extension BureauSDKiOS.LocalRiskSignalFrequesncy : Swift.Hashable {}
+extension BureauSDKiOS.FailedCheck : Swift.Equatable {}
+extension BureauSDKiOS.FailedCheck : Swift.Hashable {}

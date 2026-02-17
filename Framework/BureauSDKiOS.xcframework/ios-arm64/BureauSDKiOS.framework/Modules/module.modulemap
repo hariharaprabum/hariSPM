@@ -1,0 +1,4 @@
+framework module BureauSDKiOS {
+  header "BureauSDKiOS-Swift.h"
+  requires objc
+}
