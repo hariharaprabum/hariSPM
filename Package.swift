@@ -16,7 +16,7 @@ let package = Package(
         .binaryTarget(
             name: "hariSPM",
             url: "https://github.com/hariharaprabum/hariSPM/releases/download/1.0.0/BureauSDKiOS.xcframework.zip",
-            checksum: "4cd69e6b8c6108d257768fb847ee0a07f37ce66510e9bf8ed83a5b7f7eec2ee9"
+            checksum: "4f33693f1e9611817a599d86b82c6d68c16a372e7c276c8e35bb8f78f34a1e3e"
         )
     ]
 )
