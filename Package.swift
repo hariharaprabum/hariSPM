@@ -9,14 +9,32 @@ let package = Package(
     products: [
         .library(
             name: "hariSPM",
-            targets: ["hariSPM"]
+            targets: ["hariSPMWrapper"]
+        )
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/getsentry/sentry-cocoa.git",
+            exact: "8.53.2"
+        ),
+        .package(
+            url: "https://github.com/apple/swift-protobuf.git",
+            "1.20.0"..<"2.0.0"
         )
     ],
     targets: [
         .binaryTarget(
             name: "hariSPM",
-            url: "https://github.com/hariharaprabum/hariSPM/releases/download/1.0.2/BureauSDKiOS.xcframework.zip",
-            checksum: "b5de3c318e7afde29967ceffe8b9d8e7c8fce58aa65b4fe169f26a83b9cff1e6"
+            url: "https://github.com/hariharaprabum/hariSPM/releases/download/1.0.3/bureau_id_fraud_sdk.xcframework.zip",
+            checksum: "969849fc7a38e8f8bdf4282c83426f79939bf21eb6bc114bde586f15cb87bc44"
+        ),
+        .target(
+            name: "hariSPMWrapper",
+            dependencies: [
+                "hariSPM",
+                .product(name: "Sentry", package: "sentry-cocoa"),
+                .product(name: "SwiftProtobuf", package: "swift-protobuf")
+            ]
         )
     ]
 )
