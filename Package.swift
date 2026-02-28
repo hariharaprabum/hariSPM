@@ -25,7 +25,7 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "hariSPM",
-            url: "https://github.com/hariharaprabum/hariSPM/releases/download/1.0.3/bureau_id_fraud_sdk.xcframework.zip",
+            url: "https://github.com/hariharaprabum/hariSPM/releases/download/1.0.4/bureau_id_fraud_sdk.xcframework.zip",
             checksum: "969849fc7a38e8f8bdf4282c83426f79939bf21eb6bc114bde586f15cb87bc44"
         ),
         .target(
